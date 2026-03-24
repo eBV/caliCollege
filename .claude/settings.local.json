@@ -12,7 +12,21 @@
       "WebFetch(domain:chaffeyathletics.com)",
       "WebFetch(domain:citrusathletics.com)",
       "WebFetch(domain:comptonathletics.com)",
-      "WebFetch(domain:eastlaathletics.com)"
+      "WebFetch(domain:eastlaathletics.com)",
+      "Read(//Users/eBV/Desktop/**)",
+      "Bash(npm create:*)",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(export PATH=\"/Users/eBV/.local/opt/node-v24.14.0/bin:$PATH\")",
+      "Bash(npm --version)",
+      "Bash(npm install:*)",
+      "Bash(rm -f /Users/eBV/Desktop/caliCollegeReact/src/App.css /Users/eBV/Desktop/caliCollegeReact/src/index.css /Users/eBV/Desktop/caliCollegeReact/src/App.jsx /Users/eBV/Desktop/caliCollegeReact/src/assets/react.svg /Users/eBV/Desktop/caliCollegeReact/public/vite.svg)",
+      "Bash(mkdir -p /Users/eBV/Desktop/caliCollegeReact/src/data /Users/eBV/Desktop/caliCollegeReact/src/hooks /Users/eBV/Desktop/caliCollegeReact/src/utils /Users/eBV/Desktop/caliCollegeReact/src/components/views /Users/eBV/Desktop/caliCollegeReact/src/components/sidebar)",
+      "Bash(head -3 grep -n \"^};\" /Users/eBV/Desktop/caliCollege/js/data/scorecardData.js)",
+      "Bash(npm run:*)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(node -e \":*)",
+      "Bash(python3 -c \":*)"
     ]
   }
 }
