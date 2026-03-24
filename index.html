@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CA College Athletics Finder | Basketball &amp; Baseball</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS — MUST come before Leaflet JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-left">
+      <div class="site-logo">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 2L4 8V18C4 26.2 10.4 33.8 18 36C25.6 33.8 32 26.2 32 18V8L18 2Z" fill="#C41E3A"/>
+          <path d="M18 2L4 8V18C4 26.2 10.4 33.8 18 36C25.6 33.8 32 26.2 32 18V8L18 2Z" fill="url(#shield-grad)"/>
+          <text x="18" y="23" text-anchor="middle" font-family="Oswald,sans-serif" font-size="13" font-weight="700" fill="white">CA</text>
+          <defs>
+            <linearGradient id="shield-grad" x1="18" y1="2" x2="18" y2="36" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#C41E3A"/>
+              <stop offset="100%" stop-color="#8B0000"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="site-logo-text">
+          <span class="site-title">CA College Athletics</span>
+          <span class="site-subtitle">Men's Basketball &amp; Baseball</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="search-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search schools, cities, conferences…" autocomplete="off">
+        <button class="search-clear" id="search-clear" aria-label="Clear search">✕</button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button class="btn btn--ghost btn--sm" id="export-btn" title="Export to CSV">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export CSV
+      </button>
+      <button class="btn btn--ghost btn--sm filters-toggle" id="filters-toggle" aria-label="Toggle filters">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+          <line x1="11" y1="18" x2="13" y2="18"/>
+        </svg>
+        Filters
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== STATS BAR ===== -->
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-chip"><span class="stat-value" id="stat-total">65</span><span class="stat-label">Total Schools</span></div>
+    <div class="stat-chip"><span class="stat-value" id="stat-d1">24</span><span class="stat-label">NCAA D1</span></div>
+    <div class="stat-chip"><span class="stat-value" id="stat-cc">17</span><span class="stat-label">Community Colleges</span></div>
+    <div class="stat-chip"><span class="stat-value" id="stat-nearby">--</span><span class="stat-label">Within 30 mi</span></div>
+    <div class="stat-chip stat-chip--highlight"><span class="stat-value" id="stat-submitted">0</span><span class="stat-label">Apps Submitted</span></div>
+  </div>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <div class="app-layout">
+
+    <!-- ===== SIDEBAR / FILTERS ===== -->
+    <aside class="filters-panel" id="filters-panel">
+
+      <!-- Athlete Profile -->
+      <div class="athlete-panel" id="athlete-profile">
+        <!-- Populated by athlete.js -->
+      </div>
+
+      <div class="filters-header">
+        <h2 class="filters-title">Filters</h2>
+        <button class="btn btn--ghost btn--xs reset-btn" id="reset-filters">Reset All</button>
+      </div>
+
+      <!-- Sort -->
+      <div class="filter-group">
+        <label class="filter-group-label" for="sort-select">Sort By</label>
+        <select class="filter-select" id="sort-select">
+          <option value="distance_asc" selected>Distance: Closest First</option>
+          <option value="distance_desc">Distance: Farthest First</option>
+          <option value="name_asc">School Name: A–Z</option>
+          <option value="tuition_asc">Tuition: Low to High</option>
+          <option value="tuition_desc">Tuition: High to Low</option>
+          <option value="basketball_desc">Basketball Rating: Best First</option>
+          <option value="baseball_desc">Baseball Rating: Best First</option>
+          <option value="combined_desc">Combined Rating: Best First</option>
+          <option value="population_desc">Student Pop: Largest First</option>
+          <option value="population_asc">Student Pop: Smallest First</option>
+        </select>
+      </div>
+
+      <!-- Distance -->
+      <div class="filter-group">
+        <label class="filter-group-label">Distance from Lakewood, CA</label>
+        <div class="checkbox-list" id="filter-distance">
+          <label class="checkbox-item"><input type="checkbox" value="0-25" checked> Under 25 miles</label>
+          <label class="checkbox-item"><input type="checkbox" value="25-50" checked> 25 – 50 miles</label>
+          <label class="checkbox-item"><input type="checkbox" value="50-100" checked> 50 – 100 miles</label>
+          <label class="checkbox-item"><input type="checkbox" value="100-200" checked> 100 – 200 miles</label>
+          <label class="checkbox-item"><input type="checkbox" value="200+" checked> 200+ miles</label>
+        </div>
+      </div>
+
+      <!-- Division -->
+      <div class="filter-group">
+        <label class="filter-group-label">Athletic Division</label>
+        <div class="checkbox-list" id="filter-division">
+          <label class="checkbox-item"><input type="checkbox" value="NCAA-D1" checked> <span class="badge badge--d1 badge--xs">D1</span> NCAA Division I</label>
+          <label class="checkbox-item"><input type="checkbox" value="NCAA-D2" checked> <span class="badge badge--d2 badge--xs">D2</span> NCAA Division II</label>
+          <label class="checkbox-item"><input type="checkbox" value="NCAA-D3" checked> <span class="badge badge--d3 badge--xs">D3</span> NCAA Division III</label>
+          <label class="checkbox-item"><input type="checkbox" value="NAIA" checked> <span class="badge badge--naia badge--xs">NAIA</span> NAIA</label>
+          <label class="checkbox-item"><input type="checkbox" value="CCCAA" checked> <span class="badge badge--cccaa badge--xs">CC</span> Community College</label>
+        </div>
+      </div>
+
+      <!-- Region -->
+      <div class="filter-group">
+        <label class="filter-group-label">Region of California</label>
+        <div class="checkbox-list" id="filter-region">
+          <label class="checkbox-item"><input type="checkbox" value="SoCal" checked> Southern California</label>
+          <label class="checkbox-item"><input type="checkbox" value="Central" checked> Central California</label>
+          <label class="checkbox-item"><input type="checkbox" value="NorCal" checked> Northern California</label>
+        </div>
+      </div>
+
+      <!-- Institution Type -->
+      <div class="filter-group">
+        <label class="filter-group-label">Institution Type</label>
+        <div class="checkbox-list" id="filter-type">
+          <label class="checkbox-item"><input type="checkbox" value="University" checked> University (4-Year)</label>
+          <label class="checkbox-item"><input type="checkbox" value="College" checked> College (4-Year)</label>
+          <label class="checkbox-item"><input type="checkbox" value="CommunityCollege" checked> Community College (2-Year)</label>
+        </div>
+      </div>
+
+      <!-- Tuition Range -->
+      <div class="filter-group">
+        <label class="filter-group-label">Annual Tuition (In-State)</label>
+        <div class="checkbox-list" id="filter-tuition">
+          <label class="checkbox-item"><input type="checkbox" value="0-1500" checked> Under $1,500 (CC)</label>
+          <label class="checkbox-item"><input type="checkbox" value="1500-7000" checked> $1,500 – $7,000</label>
+          <label class="checkbox-item"><input type="checkbox" value="7000-15000" checked> $7,000 – $15,000</label>
+          <label class="checkbox-item"><input type="checkbox" value="15000-30000" checked> $15,000 – $30,000</label>
+          <label class="checkbox-item"><input type="checkbox" value="30000-60000" checked> $30,000 – $60,000</label>
+          <label class="checkbox-item"><input type="checkbox" value="60000+" checked> $60,000+</label>
+        </div>
+      </div>
+
+      <!-- Basketball Rating -->
+      <div class="filter-group">
+        <label class="filter-group-label">
+          🏀 Basketball Rating (min)
+          <span class="slider-value" id="bball-rating-val">Any</span>
+        </label>
+        <input type="range" class="rating-slider" id="filter-basketball" min="1" max="5" value="1">
+        <div class="slider-labels"><span>1★</span><span>5★</span></div>
+      </div>
+
+      <!-- Baseball Rating -->
+      <div class="filter-group">
+        <label class="filter-group-label">
+          ⚾ Baseball Rating (min)
+          <span class="slider-value" id="baseball-rating-val">Any</span>
+        </label>
+        <input type="range" class="rating-slider" id="filter-baseball" min="1" max="5" value="1">
+        <div class="slider-labels"><span>1★</span><span>5★</span></div>
+      </div>
+
+      <!-- App Status Filter -->
+      <div class="filter-group">
+        <label class="filter-group-label">Application Status</label>
+        <div class="checkbox-list" id="filter-appstatus">
+          <label class="checkbox-item"><input type="checkbox" value="all" checked> All Statuses</label>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+      <!-- View Tabs -->
+      <div class="view-tabs">
+        <button class="view-tab view-tab--active" data-view="cards">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          </svg>
+          Card View
+        </button>
+        <button class="view-tab" data-view="table">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/>
+          </svg>
+          Table View
+        </button>
+        <button class="view-tab" data-view="map">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+            <line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>
+          </svg>
+          Map View
+        </button>
+        <button class="view-tab" data-view="compare">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="6" height="18" rx="1"/><rect x="9" y="3" width="6" height="18" rx="1"/>
+            <rect x="16" y="3" width="6" height="18" rx="1"/>
+          </svg>
+          Compare
+          <span class="compare-count" id="compare-count" style="display:none">0</span>
+        </button>
+      </div>
+
+      <!-- Result count -->
+      <div class="results-bar">
+        <span class="results-count" id="results-count">65 schools</span>
+        <span class="results-hint">Click <strong>Track</strong> to manage your application. Click <strong>+ Compare</strong> to compare up to 4 schools.</span>
+      </div>
+
+      <!-- Card View -->
+      <section class="view-section view-section--active" id="view-cards">
+        <div class="cards-grid" id="cards-grid">
+          <!-- Populated by cardView.js -->
+        </div>
+      </section>
+
+      <!-- Table View -->
+      <section class="view-section" id="view-table">
+        <div class="table-wrap">
+          <table class="schools-table" id="schools-table">
+            <thead id="table-head"></thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Map View -->
+      <section class="view-section" id="view-map">
+        <div id="map"></div>
+      </section>
+
+      <!-- Compare View -->
+      <section class="view-section" id="view-compare">
+        <div class="compare-wrap" id="compare-wrap">
+          <div class="compare-empty" id="compare-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+              <rect x="2" y="3" width="6" height="18" rx="1"/><rect x="9" y="3" width="6" height="18" rx="1"/>
+              <rect x="16" y="3" width="6" height="18" rx="1"/>
+            </svg>
+            <p>No schools selected for comparison.</p>
+            <p class="compare-empty-hint">Click <strong>+ Compare</strong> on any school card to add it here. You can compare up to 4 schools side by side.</p>
+          </div>
+          <div class="compare-grid" id="compare-grid"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== TRACKER MODAL ===== -->
+  <div class="modal-overlay" id="tracker-overlay">
+    <div class="modal" id="tracker-modal" role="dialog" aria-modal="true" aria-labelledby="modal-school-name">
+      <div class="modal-header">
+        <div class="modal-school-info">
+          <h2 id="modal-school-name" class="modal-title"></h2>
+          <div class="modal-school-meta">
+            <span id="modal-division-badge" class="badge"></span>
+            <span id="modal-city" class="modal-city"></span>
+            <span id="modal-distance" class="modal-distance"></span>
+          </div>
+          <div class="modal-coach-emails" id="modal-coach-emails"></div>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-form-grid">
+          <div class="form-group">
+            <label class="form-label" for="tracker-priority">Priority</label>
+            <select class="form-select" id="tracker-priority">
+              <option value="top">🔴 Top Choice</option>
+              <option value="high">🟠 High Interest</option>
+              <option value="medium" selected>🟡 Medium Interest</option>
+              <option value="low">🟢 Low Interest</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="tracker-status">App Status</label>
+            <select class="form-select" id="tracker-status">
+              <option value="not_started">Not Started</option>
+              <option value="researching">Researching</option>
+              <option value="in_progress">In Progress</option>
+              <option value="submitted">Submitted</option>
+              <option value="accepted">Accepted</option>
+              <option value="waitlisted">Waitlisted</option>
+              <option value="denied">Denied</option>
+              <option value="enrolled">Enrolled ★</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="tracker-date-applied">Date Applied</label>
+            <input type="date" class="form-input" id="tracker-date-applied">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="tracker-financial">Financial Aid Status</label>
+            <select class="form-select" id="tracker-financial">
+              <option value="not_applied">Not Applied</option>
+              <option value="applied">Applied</option>
+              <option value="received_offer">Received Offer</option>
+              <option value="accepted_aid">Accepted Aid</option>
+            </select>
+          </div>
+          <div class="form-group form-group--inline">
+            <label class="checkbox-label">
+              <input type="checkbox" id="tracker-coach-contacted">
+              <span>Coach Contacted?</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="tracker-bball-email">Basketball Coach Email</label>
+            <input type="email" class="form-input" id="tracker-bball-email" placeholder="coach@school.edu">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="tracker-baseball-email">Baseball Coach Email</label>
+            <input type="email" class="form-input" id="tracker-baseball-email" placeholder="coach@school.edu">
+          </div>
+        </div>
+        <div class="form-group form-group--full">
+          <label class="form-label" for="tracker-notes">Personal Notes</label>
+          <textarea class="form-textarea" id="tracker-notes" rows="4" placeholder="Add notes about this school, your visit, coach conversations…"></textarea>
+        </div>
+      </div>
+      <div class="modal-email-actions" id="modal-email-actions">
+        <!-- Populated by tracker.js -->
+      </div>
+      <div class="modal-footer">
+        <div class="modal-links" id="modal-links"></div>
+        <div class="modal-actions">
+          <button class="btn btn--ghost" id="modal-cancel">Cancel</button>
+          <button class="btn btn--primary" id="modal-save">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ===== SCRIPTS — order is the dependency graph ===== -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN2/WXo=" crossorigin=""></script>
+
+  <script src="js/data/schools.js"></script>
+  <script src="js/data/coachData.js"></script>
+  <script src="js/data/scorecardData.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/views/cardView.js"></script>
+  <script src="js/views/tableView.js"></script>
+  <script src="js/views/mapView.js"></script>
+  <script src="js/views/compareView.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/statsBar.js"></script>
+  <script src="js/athlete.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

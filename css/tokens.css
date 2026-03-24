@@ -1,0 +1,149 @@
+/* ============================================================
+   DESIGN TOKENS — CSS Custom Properties
+   California College Athletics Dashboard
+   ============================================================ */
+
+:root {
+  /* === Core Colors === */
+  --color-primary:       #C41E3A;
+  --color-primary-dark:  #8B0000;
+  --color-primary-dim:   rgba(196, 30, 58, 0.15);
+  --color-primary-glow:  rgba(196, 30, 58, 0.3);
+
+  --color-bg:            #0D0D0D;
+  --color-surface:       #1E1E1E;
+  --color-surface-2:     #252525;
+  --color-surface-3:     #2E2E2E;
+  --color-border:        #333333;
+  --color-border-light:  #3A3A3A;
+
+  --color-text:          #F5F5F5;
+  --color-text-muted:    #B0B0B0;
+  --color-text-faint:    #6C6C6C;
+  --color-white:         #FFFFFF;
+
+  /* === Status Colors === */
+  --color-success:       #28A745;
+  --color-warning:       #FFC107;
+  --color-danger:        #DC3545;
+  --color-info:          #17A2B8;
+
+  /* === Division Badge Colors === */
+  --badge-d1:            #C41E3A;
+  --badge-d2:            #007BFF;
+  --badge-d3:            #28A745;
+  --badge-naia:          #E09200;
+  --badge-cccaa:         #17A2B8;
+
+  /* === App Status Colors === */
+  --status-not-started:  #6C757D;
+  --status-researching:  #FFC107;
+  --status-in-progress:  #007BFF;
+  --status-submitted:    #17A2B8;
+  --status-accepted:     #28A745;
+  --status-waitlisted:   #FD7E14;
+  --status-denied:       #DC3545;
+  --status-enrolled:     #C41E3A;
+
+  /* === Priority Colors === */
+  --priority-top:        #C41E3A;
+  --priority-high:       #FD7E14;
+  --priority-medium:     #FFC107;
+  --priority-low:        #28A745;
+
+  /* === Star Rating === */
+  --star-filled:         #FFD700;
+  --star-empty:          #3A3A3A;
+
+  /* === Typography === */
+  --font-heading:        'Oswald', Impact, sans-serif;
+  --font-body:           'Inter', Roboto, sans-serif;
+
+  --text-xs:    11px;
+  --text-sm:    12px;
+  --text-base:  14px;
+  --text-md:    15px;
+  --text-lg:    18px;
+  --text-xl:    22px;
+  --text-2xl:   28px;
+
+  --weight-light:  300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semi:   600;
+  --weight-bold:   700;
+
+  /* === Spacing === */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* === Layout === */
+  --header-height:    72px;
+  --stats-height:     52px;
+  --sidebar-width:    288px;
+  --sidebar-min:      260px;
+
+  /* === Radius === */
+  --radius-sm:   6px;
+  --radius:      12px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-sm:    0 1px 4px rgba(0,0,0,0.4);
+  --shadow-card:  0 4px 20px rgba(0,0,0,0.5);
+  --shadow-hover: 0 8px 32px var(--color-primary-glow), 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-modal: 0 24px 80px rgba(0,0,0,0.8);
+
+  /* === Transitions === */
+  --transition:      150ms ease;
+  --transition-slow: 300ms ease;
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+input, select, textarea, button { font-family: var(--font-body); }
+
+button { cursor: pointer; border: none; background: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-border-light); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-faint); }

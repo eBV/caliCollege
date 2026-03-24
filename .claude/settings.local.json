@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open /Users/eBV/Desktop/caliCollege/index.html)",
+      "WebFetch(domain:www.maxpreps.com)",
+      "Bash(curl -s \"https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=YccVvSMUCXrG1Pc4tZ1cfTGj5bKn8iM8riC27gKo&school.state=CA&school.degrees_awarded.predominant=3&per_page=100&page=0&fields=school.name,id,school.city,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.student.size,latest.admissions.admission_rate.overall,school.school_url,latest.completion.rate_suppressed.overall\")",
+      "Bash(curl -s \"https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=YccVvSMUCXrG1Pc4tZ1cfTGj5bKn8iM8riC27gKo&school.state=CA&school.degrees_awarded.predominant=3&per_page=100&page=1&fields=school.name,id,school.city,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.student.size,latest.admissions.admission_rate.overall,school.school_url,latest.completion.rate_suppressed.overall\")",
+      "Bash(curl -s \"https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=YccVvSMUCXrG1Pc4tZ1cfTGj5bKn8iM8riC27gKo&school.state=CA&school.degrees_awarded.predominant=1&per_page=100&page=0&fields=school.name,id,school.city,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.student.size,latest.admissions.admission_rate.overall,school.school_url\")",
+      "WebFetch(domain:api.data.gov)",
+      "Bash(node -e \"const fs=require\\(''''fs''''\\); const d=fs.readFileSync\\(''''/Users/eBV/Desktop/caliCollege/js/data/coachData.js'''',''''utf8''''\\); console.log\\(''''coachData entries:'''', \\(d.match\\(/''''SCH/g\\)||[]\\).length\\); const s=fs.readFileSync\\(''''/Users/eBV/Desktop/caliCollege/js/data/scorecardData.js'''',''''utf8''''\\); console.log\\(''''scorecardData entries:'''', \\(s.match\\(/''''SCH/g\\)||[]\\).length\\);\")",
+      "WebSearch",
+      "WebFetch(domain:chaffeyathletics.com)",
+      "WebFetch(domain:citrusathletics.com)",
+      "WebFetch(domain:comptonathletics.com)",
+      "WebFetch(domain:eastlaathletics.com)"
+    ]
+  }
+}

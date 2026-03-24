@@ -1,0 +1,47 @@
+/* ============================================================
+   COACH DATA — sourced from schools.csv
+   Overlayed into SCHOOLS_DATA on app init
+   ============================================================ */
+
+window.COACH_DATA = {
+  'SCH001': { basketballCoach: 'Chris Acker', basketballCoachEmail: 'chris.acker@csulb.edu', baseballCoach: 'Bryan Peters', baseballCoachEmail: 'bryan.peters@csulb.edu', studentPortalURL: 'https://my.csulb.edu/' },
+  'SCH002': { basketballCoach: 'Mick Cronin', basketballCoachEmail: 'mcronin@athletics.ucla.edu', baseballCoach: 'John Savage', baseballCoachEmail: 'jsavage@athletics.ucla.edu', studentPortalURL: 'https://my.ucla.edu/' },
+  'SCH003': { basketballCoach: 'Eric Musselman', basketballCoachEmail: 'uschoops@usc.edu', baseballCoach: 'Andy Stankiewicz', baseballCoachEmail: 'stankiew@usc.edu', studentPortalURL: 'https://my.usc.edu/' },
+  'SCH004': { basketballCoach: 'Dedrique Taylor', basketballCoachEmail: 'detaylor@fullerton.edu', baseballCoach: 'Jason Dietrich', baseballCoachEmail: 'jdietrich@fullerton.edu', studentPortalURL: 'https://my.fullerton.edu/' },
+  'SCH005': { basketballCoach: 'Russell Turner', basketballCoachEmail: 'UCIMBB@uci.edu', baseballCoach: 'Ben Orloff', baseballCoachEmail: 'borloff@uci.edu', studentPortalURL: 'https://my.uci.edu/' },
+  'SCH006': { basketballCoach: 'Joe Pasternack', basketballCoachEmail: 'jpasternack@ucsb.edu', baseballCoach: 'Andrew Checketts', baseballCoachEmail: 'achecketts@ucsb.edu', studentPortalURL: 'https://my.ucsb.edu/' },
+  'SCH007': { basketballCoach: 'Mike DeGeorge', basketballCoachEmail: 'mdegeorge@calpoly.edu', baseballCoach: 'Larry Lee', baseballCoachEmail: 'llee@calpoly.edu', studentPortalURL: 'https://my.calpoly.edu/' },
+  'SCH008': { basketballCoach: 'Mike Magpayo', basketballCoachEmail: 'mike.magpayo@ucr.edu', baseballCoach: 'Justin Johnson', baseballCoachEmail: 'justin.johnson@ucr.edu', studentPortalURL: 'https://rweb.ucr.edu/' },
+  'SCH009': { basketballCoach: 'Jim Les', basketballCoachEmail: 'jles@ucdavis.edu', baseballCoach: 'Tommy Nicholson', baseballCoachEmail: 'tnicholson@ucdavis.edu', studentPortalURL: 'https://my.ucdavis.edu/' },
+  'SCH010': { basketballCoach: 'Vance Walberg', basketballCoachEmail: 'vwalberg@csufresno.edu', baseballCoach: 'Ryan Overland', baseballCoachEmail: 'roverland@csufresno.edu', studentPortalURL: 'https://my.fresnostate.edu/' },
+  'SCH011': { basketballCoach: 'Brian Dutcher', basketballCoachEmail: 'bdutcher@sdsu.edu', baseballCoach: 'Shaun Cole', baseballCoachEmail: 'scole@sdsu.edu', studentPortalURL: 'https://my.sdsu.edu/' },
+  'SCH012': { basketballCoach: 'Tim Miles', basketballCoachEmail: 'tim.miles@sjsu.edu', baseballCoach: 'Brad Sanfilippo', baseballCoachEmail: 'bradley.sanfilippo@sjsu.edu', studentPortalURL: 'https://one.sjsu.edu/' },
+  'SCH013': { basketballCoach: 'Kyle Smith', basketballCoachEmail: 'hoopsmasher@stanford.edu', baseballCoach: 'David Esquer', baseballCoachEmail: 'desquer@stanford.edu', studentPortalURL: 'https://axess.stanford.edu/' },
+  'SCH014': { basketballCoach: 'Mark Madsen', basketballCoachEmail: 'madsen_mark@berkeley.edu', baseballCoach: 'Mike Neu', baseballCoachEmail: 'mneu@berkeley.edu', studentPortalURL: 'https://calcentral.berkeley.edu/' },
+  'SCH015': { basketballCoach: 'Ed Schilling', basketballCoachEmail: 'ed.schilling@pepperdine.edu', baseballCoach: 'Rick Hirtensteiner', baseballCoachEmail: 'rick.hirtensteiner@pepperdine.edu', studentPortalURL: 'https://wave-net.pepperdine.edu/' },
+  'SCH016': { basketballCoach: 'Stan Johnson', basketballCoachEmail: 'stan.johnson@lmu.edu', baseballCoach: 'Donegal Fergus', baseballCoachEmail: 'donegal.fergus@lmu.edu', studentPortalURL: 'https://my.lmu.edu/' },
+  'SCH017': { basketballCoach: 'Herb Sendek', basketballCoachEmail: 'hsendek@scu.edu', baseballCoach: 'Rusty Filter', baseballCoachEmail: 'rfilter@scu.edu', studentPortalURL: 'https://my.scu.edu/' },
+  'SCH018': { basketballCoach: 'Chris Gerlufsen', basketballCoachEmail: 'cgerlufsen@usfca.edu', baseballCoach: 'Rob DiToma', baseballCoachEmail: 'rditoma@usfca.edu', studentPortalURL: 'https://myusf.usfca.edu/' },
+  'SCH019': { basketballCoach: 'Steve Lavin', basketballCoachEmail: 'slavin@sandiego.edu', baseballCoach: 'Brock Ungricht', baseballCoachEmail: 'bungricht@sandiego.edu', studentPortalURL: 'https://my.sandiego.edu/' },
+  'SCH020': { basketballCoach: 'Andy Newman', basketballCoachEmail: 'andy.newman@csun.edu', baseballCoach: 'Eddie Cornejo', baseballCoachEmail: 'eddie.cornejo@csun.edu', studentPortalURL: 'https://my.csun.edu/' },
+  'SCH022': { basketballCoach: 'David Patrick', basketballCoachEmail: 'david.patrick@csus.edu', baseballCoach: 'Reggie Christiansen', baseballCoachEmail: 'rchristiansen@csus.edu', studentPortalURL: 'https://my.csus.edu/' },
+  'SCH023': { basketballCoach: 'Randy Bennett', basketballCoachEmail: 'rbennett@stmarys-ca.edu', baseballCoach: 'Eric Valenzuela', baseballCoachEmail: 'ejv1@stmarys-ca.edu', studentPortalURL: 'https://my.stmarys-ca.edu/' },
+  'SCH024': { basketballCoach: 'Dave Smart', basketballCoachEmail: 'dsmart@pacific.edu', baseballCoach: 'Chris Rodriguez', baseballCoachEmail: 'crodriguez@pacific.edu', studentPortalURL: 'https://my.pacific.edu/' },
+  'SCH026': { basketballCoach: 'Jim Saia', basketballCoachEmail: 'jsaia@calstatela.edu', baseballCoach: 'Vince Beringhele', baseballCoachEmail: 'vbering@calstatela.edu', studentPortalURL: 'https://my.calstatela.edu/' },
+  'SCH027': { basketballCoach: 'Steve Becker', basketballCoachEmail: 'sbecker@csudh.edu', baseballCoach: 'Tyler Gatause', baseballCoachEmail: 'tgatause@csudh.edu', studentPortalURL: 'https://my.csudh.edu/' },
+  'SCH028': { basketballCoach: 'Gus Argenal', basketballCoachEmail: 'gus.argenal@csusb.edu', baseballCoach: 'Mike Gelineau', baseballCoachEmail: 'mgelineau@csusb.edu', studentPortalURL: 'https://my.csusb.edu/' },
+  'SCH029': { basketballCoach: 'Greg Clink', basketballCoachEmail: 'gclink@csuchico.edu', baseballCoach: 'Dave Taylor', baseballCoachEmail: 'dtaylor@csuchico.edu', studentPortalURL: 'https://my.csuchico.edu/' },
+  'SCH031': { basketballCoach: 'Vince Inglima', basketballCoachEmail: 'inglima@sfsu.edu', baseballCoach: 'Tony Schifano', baseballCoachEmail: 'schifano@sfsu.edu', studentPortalURL: 'https://gateway.sfsu.edu/' },
+  'SCH032': { basketballCoach: 'Isaac Williams', basketballCoachEmail: 'iswilliams@csumb.edu', baseballCoach: 'Walt White', baseballCoachEmail: 'wawhite@csumb.edu', studentPortalURL: 'https://my.csumb.edu/' },
+  'SCH033': { basketballCoach: 'Paul Trevor', basketballCoachEmail: 'ptrevor@csustan.edu', baseballCoach: 'Kenny Leonesio', baseballCoachEmail: 'kleonesio@csustan.edu', studentPortalURL: 'https://my.csustan.edu/' },
+  'SCH035': { basketballCoach: 'Mike DeGeorge', basketballCoachEmail: 'mdegeorge@chapman.edu', baseballCoach: 'Scott Laverty', baseballCoachEmail: 'laverty@chapman.edu', studentPortalURL: 'https://my.chapman.edu/' },
+  'SCH037': { basketballCoach: 'Charles Katsiaficas', basketballCoachEmail: 'ckatsiaficas@pomona.edu', baseballCoach: 'Frank Pericolosi', baseballCoachEmail: 'frank.pericolosi@pomona.edu', studentPortalURL: 'https://my.pomona.edu/' },
+  'SCH038': { basketballCoach: 'Richard Reed', basketballCoachEmail: 'rreed@laverne.edu', baseballCoach: 'Scott Winterburn', baseballCoachEmail: 'swinterburn@laverne.edu', studentPortalURL: 'https://my.laverne.edu/' },
+  'SCH039': { basketballCoach: 'Brian Newhall', basketballCoachEmail: 'newhall@oxy.edu', baseballCoach: 'Matthew Curtis', baseballCoachEmail: 'mcurtis@oxy.edu', studentPortalURL: 'https://my.oxy.edu/' },
+  'SCH040': { basketballCoach: 'Mark DeCasas', basketballCoachEmail: 'mdecasas@whittier.edu', baseballCoach: 'Mike Rizzo', baseballCoachEmail: 'mrizzo@whittier.edu', studentPortalURL: 'https://my.whittier.edu/' },
+  'SCH041': { basketballCoach: 'Eric Bridgeland', basketballCoachEmail: 'eric_bridgeland@redlands.edu', baseballCoach: 'Aaron Holley', baseballCoachEmail: 'aaron_holley@redlands.edu', studentPortalURL: 'https://my.redlands.edu/' },
+  'SCH042': { basketballCoach: 'Dr. Oliver Eslinger', basketballCoachEmail: 'eslinger@caltech.edu', baseballCoach: 'Kevin Whitehead', baseballCoachEmail: 'kwhitehead@caltech.edu', studentPortalURL: 'https://access.caltech.edu/' },
+  'SCH044': { basketballCoach: 'Kelvin Starr', basketballCoachEmail: 'kstarr@masters.edu', baseballCoach: 'Monte Brooks', baseballCoachEmail: 'mbrooks@masters.edu', studentPortalURL: 'https://selfservice.masters.edu/' },
+  'SCH045': { basketballCoach: 'Dave Holmquist', basketballCoachEmail: 'dave.holmquist@biola.edu', baseballCoach: 'Jeff Calhoon', baseballCoachEmail: 'jeff.calhoon@biola.edu', studentPortalURL: 'https://my.biola.edu/' },
+  'SCH046': { basketballCoach: 'Rhett Soliday', basketballCoachEmail: 'rsoliday@vanguard.edu', baseballCoach: 'Rob Pegg', baseballCoachEmail: 'rob.pegg@vanguard.edu', studentPortalURL: 'https://my.vanguard.edu/' }
+};
